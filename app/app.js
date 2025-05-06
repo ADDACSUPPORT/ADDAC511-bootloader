@@ -192,7 +192,7 @@ var app = new Vue({
                         <p>
                             On windows, you may have to update the driver to WinUSB.
 
-                            To do this, you can download the free software, Zadig. Instructions for this can be found on the Electrosmith DaisyWiki in the Windows toolchain instructions page.
+                            To do this, please follow the instructions in <a href="https://daisy.audio/tutorials/zadig/">https://daisy.audio/tutorials/zadig/</a>
                         </p>
                     </div>
                 </b-collapse>
