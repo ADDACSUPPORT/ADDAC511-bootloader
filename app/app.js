@@ -1,5 +1,5 @@
 // Generic Strings
-const root_url = "https://electro-smith.github.io/Programmer"
+const root_url = "https://addacsupport.github.io/Programmer"
 
 // New changes involve reading from sources.json to find the 'sources' we should pull from
 // Those sources replace the previously hard coded 'examples.json' file, and should otherwise 
@@ -166,7 +166,7 @@ var app = new Vue({
     </div>
     <b-row align="center" class="app_column">
         <div>
-            <legend>Daisy Web Programmer</legend>
+            <legend>Web Programmer</legend>
             <p> Connect to the Daisy - If this is your first time here, follow the steps in Help section below </p>
             <p><b-button variant="es" id="connect"> Connect</b-button></p>
             <dialog id="interfaceDialog">
