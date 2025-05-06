@@ -547,77 +547,36 @@ var device = null;
             }
         });
 
-        // detachButton.addEventListener('click', function() {
-        //     if (device) {
-        //         device.detach().then(
-        //             async len => {
-        //                 let detached = false;
-        //                 try {
-        //                     await device.close();
-        //                     await device.waitDisconnected(5000);
-        //                     detached = true;
-        //                 } catch (err) {
-        //                     console.log("Detach failed: " + err);
-        //                 }
+        detachButton.addEventListener('click', function() {
+            if (device) {
+                device.detach().then(
+                    async len => {
+                        let detached = false;
+                        try {
+                            await device.close();
+                            await device.waitDisconnected(5000);
+                            detached = true;
+                        } catch (err) {
+                            console.log("Detach failed: " + err);
+                        }
 
-        //                 onDisconnect();
-        //                 device = null;
-        //                 if (detached) {
-        //                     // Wait a few seconds and try reconnecting
-        //                     setTimeout(autoConnect, 5000);
-        //                 }
-        //             },
-        //             async error => {
-        //                 await device.close();
-        //                 onDisconnect(error);
-        //                 device = null;
-        //             }
-        //         );
-        //     }
-        // });
+                        onDisconnect();
+                        device = null;
+                        if (detached) {
+                            // Wait a few seconds and try reconnecting
+                            setTimeout(autoConnect, 5000);
+                        }
+                    },
+                    async error => {
+                        await device.close();
+                        onDisconnect(error);
+                        device = null;
+                    }
+                );
+            }
+        });
 
-        // uploadButton.addEventListener('click', async function(event) {
-        //     event.preventDefault();
-        //     event.stopPropagation();
-        //     if (!configForm.checkValidity()) {
-        //         configForm.reportValidity();
-        //         return false;
-        //     }
-
-        //     if (!device || !device.device_.opened) {
-        //         onDisconnect();
-        //         device = null;
-        //     } else {
-        //         setLogContext(uploadLog);
-        //         clearLog(uploadLog);
-        //         try {
-        //             let status = await device.getStatus();
-        //             if (status.state == dfu.dfuERROR) {
-        //                 await device.clearStatus();
-        //             }
-        //         } catch (error) {
-        //             device.logWarning("Failed to clear status");
-        //         }
-
-        //         let maxSize = Infinity;
-        //         if (!dfuseUploadSizeField.disabled) {
-        //             maxSize = parseInt(dfuseUploadSizeField.value);
-        //         }
-
-        //         try {
-        //             const blob = await device.do_upload(transferSize, maxSize);
-        //             saveAs(blob, "firmware.bin");
-        //         } catch (error) {
-        //             logError(error);
-        //         }
-
-        //         setLogContext(null);
-        //     }
-
-        //     return false;
-        // });
-	
-        bootloaderButton.addEventListener('click', async function(event) {
+        uploadButton.addEventListener('click', async function(event) {
             event.preventDefault();
             event.stopPropagation();
             if (!configForm.checkValidity()) {
@@ -625,6 +584,49 @@ var device = null;
                 return false;
             }
 
+            if (!device || !device.device_.opened) {
+                onDisconnect();
+                device = null;
+            } else {
+                setLogContext(uploadLog);
+                clearLog(uploadLog);
+                try {
+                    let status = await device.getStatus();
+                    if (status.state == dfu.dfuERROR) {
+                        await device.clearStatus();
+                    }
+                } catch (error) {
+                    device.logWarning("Failed to clear status");
+                }
+
+                let maxSize = Infinity;
+                if (!dfuseUploadSizeField.disabled) {
+                    maxSize = parseInt(dfuseUploadSizeField.value);
+                }
+
+                try {
+                    const blob = await device.do_upload(transferSize, maxSize);
+                    saveAs(blob, "firmware.bin");
+                } catch (error) {
+                    logError(error);
+                }
+
+                setLogContext(null);
+            }
+
+            return false;
+        });
+	
+        bootloaderButton.addEventListener('click', async function(event) {
+            logInfo("Bootloader button clicked - firmwareFile: " + bootloaderFirmwareFile);
+            event.preventDefault();
+            event.stopPropagation();
+            if (!configForm.checkValidity()) {
+                logInfo("Please select a valid interface.");
+                configForm.reportValidity();
+                return false;
+            }
+            //logInfo("Bootloader button clicked - firmwareFile: " + bootloaderFirmwareFile);
             if (device && bootloaderFirmwareFile != null) {
                 setLogContext(downloadLog);
                 clearLog(downloadLog);
