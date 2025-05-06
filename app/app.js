@@ -166,8 +166,8 @@ var app = new Vue({
     </div>
     <b-row align="center" class="app_column">
         <div>
-            <legend>Web Programmer</legend>
-            <p> Connect to the Daisy - If this is your first time here, follow the steps in Help section below </p>
+            <legend>ADDAC 112 Bootloader Web Programmer</legend>
+            <p> Connect to the module - If this is your first time here, follow the steps in Help section below </p>
             <p><b-button variant="es" id="connect"> Connect</b-button></p>
             <dialog id="interfaceDialog">
                 Your device has multiple DFU interfaces. Select one from the list below:
@@ -183,25 +183,14 @@ var app = new Vue({
                     <div class="nested_list">
                         <h2>Usage:</h2>
                         <ol>
-                            <li><p>Connect the Daisy to the Computer</p></li>
-                            <li><p>Enter the system bootloader by holding the BOOT button down, and then pressing, and releasing the RESET button.</p></li>
-                            <li><p>Click the Connect button at the top of the page.</p></li>
-                            <li><p>Select, "DFU in FS Mode"</p></li>
-                            <li>
-                                <p>Now do either of the following:</p>
-                                <ul>
-                                    <li><p>Flash the blink example</p></li>
-                                    <li><p>Select a platform and an example from the drop down menu (descriptions, diagrams, etc. coming soon)</p></li>
-                                    <li><p>Click the Choose File button, and select the .bin file you would like to flash. This can be found in a projects "build" folder.</p></li>
-                                </ul>
-                            </li>
-                            <li><p>Click Program, and wait for the progress bar to finish.</p></li>
-                            <li><p>Now, if the program does not start immediatley, pressing RESET on the Daisy will cause the program to start running.</p></li>
-                        </ol>
+                            <li><p>Connect the ADDAC 112 module to the Computer via USB</p></li>
+                            <li><p>On the module press encoder > options > update FW</p></li>
+                            <li><p>Press ”Program Bootloader”. A progress bar will appear</p></li>
+                            <li><p>Once finished disconnect the USB cable and power OFF the module</p></li>
                         <p>
                             On windows, you may have to update the driver to WinUSB.
 
-                            To do this, you can download the free software, Zadig. Instructions for this can be found on the DaisyWiki in the Windows toolchain instructions page.
+                            To do this, you can download the free software, Zadig. Instructions for this can be found on the Electrosmith DaisyWiki in the Windows toolchain instructions page.
                         </p>
                     </div>
                 </b-collapse>
@@ -213,9 +202,6 @@ var app = new Vue({
                             <li>
                                 <p>An up-to-date version of Chrome, at least version 61 or newer</p>
                             </li>
-                            <li>
-                                <p>A Daisy Seed SOM. (The user-uploaded binary will work for any STM32 chip with a built in DFU bootloader).</p>
-                            </li>
                         </ul>
                     </div>
                 </b-collapse>
@@ -223,54 +209,10 @@ var app = new Vue({
         </div>
         </b-row>
         <b-row align="between">
-            <b-col align="center" class="app_column">
-                <b-container>
-                    <b-row class="p-2">
-                        <legend>Getting Started? Flash the Blink example!</legend>
-                        <div><b-button variant="es" id="blink"  :disabled="no_device">Flash Blink!</b-button></div>
-                    </b-row>
-                    <hr>
-                    <b-row class="p-2">
-                        <legend> Or select a platform and a program from the menu below.</legend>
-                        <b-form-select placeholder="Platform" v-model="sel_platform" textContent="Select a platform" id="platformSelector">
-                            <template v-slot:first>
-                                <b-form-select-option :value="null" disabled>-- Platform --</b-form-select-option>
-                            </template>
-                            <option v-for="platform in platforms" :value="platform">{{platform}}</option>
-                        </b-form-select>
-                        <b-form-select v-model="sel_example" id="firmwareSelector" required @change="programChanged">
-                            <template v-slot:first>
-                                <b-form-select-option :value="null" disabled>-- Example --</b-form-select-option>
-                            </template>
-                            <b-form-select-option v-for="example in platformExamples" v-bind:key="example.name" :value="example">{{example.name}}</b-form-select-option>
-                        </b-form-select>
-                    </b-row>
-                    <hr>
-                    <b-row class="p-2">
-                        <legend> Or select a file from your computer</legend>
-                            <b-form-file
-                                id="firmwareFile"
-                                v-model="firmwareFile"
-                                :state="Boolean(firmwareFile)"
-                                placeholder="Choose or drop a file..."
-                                drop-placeholder="Drop file here..."
-                            ></b-form-file>
-                    </b-row>
-                </b-container>
-            </b-col>
-        </b-row>
-        <b-row>
         <b-col align="center" class="app_column">
         <b-container align="center">
             <legend>Programming Section</legend>
-            <b-button id="download" variant='es' :disabled="no_device || !sel_example"> Program</b-button>
-
-            <br> <br>
-            <b-button variant="es" v-b-toggle.collapseAdvanced>Advanced...</b-button>
-            <b-collapse id="collapseAdvanced">
-                <br> <div> <b-button variant="es" id="bootloader"  :disabled="no_device">Flash Bootloader Image</b-button> </div>                        
-            </b-collapse>
-
+            <br> <div> <b-button variant="es" id="bootloader"  :disabled="no_device">Flash Bootloader Image</b-button> </div>                        
             <div class="log" id="downloadLog"></div>            
             <br><br>
             <div v-if="sel_example||firmwareFile" >            
