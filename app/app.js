@@ -184,7 +184,9 @@ var app = new Vue({
                         <h2>Usage:</h2>
                         <ol>
                             <li><p>Connect the ADDAC 112 module to the Computer via USB</p></li>
-                            <li><p>On the module press encoder > options > update FW</p></li>
+                            <li><p>On the Addac 112 module, press encoder > options > UPLOAD BOOTLOADER</p></li>
+                            <li><p>Press 'Connect' button above. A pop-up window with a list of usb devices will appear</p></li>
+                            <li><p>Select 'DFU in FS mode - Paired' and press 'Connect'</p></li>
                             <li><p>Press ”Program Bootloader”. A progress bar will appear</p></li>
                             <li><p>Once finished disconnect the USB cable and power OFF the module</p></li>
                         <p>
