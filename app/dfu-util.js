@@ -661,96 +661,96 @@ var device = null;
             }            
         });
 
-        blinkButton.addEventListener('click', async function(event) {
-            event.preventDefault();
-            event.stopPropagation();
-            if (!configForm.checkValidity()) {
-                configForm.reportValidity();
-                return false;
-            }
+        // blinkButton.addEventListener('click', async function(event) {
+        //     event.preventDefault();
+        //     event.stopPropagation();
+        //     if (!configForm.checkValidity()) {
+        //         configForm.reportValidity();
+        //         return false;
+        //     }
 
-            if (device && blinkFirmwareFile != null) {
-                setLogContext(downloadLog);
-                clearLog(downloadLog);
-                try {
-                    let status = await device.getStatus();
-                    if (status.state == dfu.dfuERROR) {
-                        await device.clearStatus();
-                    }
-                } catch (error) {
-                    device.logWarning("Failed to clear status");
-                }
-                await device.do_download(transferSize, blinkFirmwareFile, manifestationTolerant).then(
-                    () => {
-                        logInfo("Done!");
-                        setLogContext(null);
-                        if (!manifestationTolerant) {
-                            device.waitDisconnected(5000).then(
-                                dev => {
-                                    onDisconnect();
-                                    device = null;
-                                },
-                                error => {
-                                    // It didn't reset and disconnect for some reason...
-                                    console.log("Device unexpectedly tolerated manifestation.");
-                                }
-                            );
-                        }
-                    },
-                    error => {
-                        logError(error);
-                        setLogContext(null);
-                    }
-                )
-            }            
-        });
+        //     if (device && blinkFirmwareFile != null) {
+        //         setLogContext(downloadLog);
+        //         clearLog(downloadLog);
+        //         try {
+        //             let status = await device.getStatus();
+        //             if (status.state == dfu.dfuERROR) {
+        //                 await device.clearStatus();
+        //             }
+        //         } catch (error) {
+        //             device.logWarning("Failed to clear status");
+        //         }
+        //         await device.do_download(transferSize, blinkFirmwareFile, manifestationTolerant).then(
+        //             () => {
+        //                 logInfo("Done!");
+        //                 setLogContext(null);
+        //                 if (!manifestationTolerant) {
+        //                     device.waitDisconnected(5000).then(
+        //                         dev => {
+        //                             onDisconnect();
+        //                             device = null;
+        //                         },
+        //                         error => {
+        //                             // It didn't reset and disconnect for some reason...
+        //                             console.log("Device unexpectedly tolerated manifestation.");
+        //                         }
+        //                     );
+        //                 }
+        //             },
+        //             error => {
+        //                 logError(error);
+        //                 setLogContext(null);
+        //             }
+        //         )
+        //     }            
+        // });
 
 
-        downloadButton.addEventListener('click', async function(event) {
-            event.preventDefault();
-            event.stopPropagation();
-            if (!configForm.checkValidity()) {
-                configForm.reportValidity();
-                return false;
-            }
+        // downloadButton.addEventListener('click', async function(event) {
+        //     event.preventDefault();
+        //     event.stopPropagation();
+        //     if (!configForm.checkValidity()) {
+        //         configForm.reportValidity();
+        //         return false;
+        //     }
 
-            if (device && firmwareFile != null) {
-                setLogContext(downloadLog);
-                clearLog(downloadLog);
-                try {
-                    let status = await device.getStatus();
-                    if (status.state == dfu.dfuERROR) {
-                        await device.clearStatus();
-                    }
-                } catch (error) {
-                    device.logWarning("Failed to clear status");
-                }
-                await device.do_download(transferSize, firmwareFile, manifestationTolerant).then(
-                    () => {
-                        logInfo("Done!");
-                        setLogContext(null);
-                        if (!manifestationTolerant) {
-                            device.waitDisconnected(5000).then(
-                                dev => {
-                                    onDisconnect();
-                                    device = null;
-                                },
-                                error => {
-                                    // It didn't reset and disconnect for some reason...
-                                    console.log("Device unexpectedly tolerated manifestation.");
-                                }
-                            );
-                        }
-                    },
-                    error => {
-                        logError(error);
-                        setLogContext(null);
-                    }
-                )
-            }
+        //     if (device && firmwareFile != null) {
+        //         setLogContext(downloadLog);
+        //         clearLog(downloadLog);
+        //         try {
+        //             let status = await device.getStatus();
+        //             if (status.state == dfu.dfuERROR) {
+        //                 await device.clearStatus();
+        //             }
+        //         } catch (error) {
+        //             device.logWarning("Failed to clear status");
+        //         }
+        //         await device.do_download(transferSize, firmwareFile, manifestationTolerant).then(
+        //             () => {
+        //                 logInfo("Done!");
+        //                 setLogContext(null);
+        //                 if (!manifestationTolerant) {
+        //                     device.waitDisconnected(5000).then(
+        //                         dev => {
+        //                             onDisconnect();
+        //                             device = null;
+        //                         },
+        //                         error => {
+        //                             // It didn't reset and disconnect for some reason...
+        //                             console.log("Device unexpectedly tolerated manifestation.");
+        //                         }
+        //                     );
+        //                 }
+        //             },
+        //             error => {
+        //                 logError(error);
+        //                 setLogContext(null);
+        //             }
+        //         )
+        //     }
 
-            //return false;
-        });
+        //     //return false;
+        // });
 
         // Check if WebUSB is available
         if (typeof navigator.usb !== 'undefined') {
