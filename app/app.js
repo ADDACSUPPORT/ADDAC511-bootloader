@@ -183,8 +183,8 @@ var app = new Vue({
                     <div class="nested_list">
                         <h2>Usage:</h2>
                         <ol>
-                            <li><p>Connect the ADDAC 112 module to the Computer via USB</p></li>
-                            <li><p>On the Addac 112 module, press encoder > options > UPLOAD BOOTLOADER</p></li>
+                            <li><p>Connect the ADDAC 511 module to the Computer via USB</p></li>
+                            <li><p>On the Addac 511 module, press MENU > UPDATE BOOTLOADER</p></li>
                             <li><p>Press 'Connect' button above. A pop-up window with a list of usb devices will appear</p></li>
                             <li><p>Select 'DFU in FS mode - Paired' and press 'Connect'</p></li>
                             <li><p>Press ”Flash Bootloader Image”. A progress bar will appear</p></li>
