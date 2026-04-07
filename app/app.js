@@ -164,11 +164,14 @@ var app = new Vue({
             </div>
         </b-form>
     </div>
-    <b-row align="center" class="app_column">
+    <b-row align="left" class="app_column">
         <div>
-            <legend>ADDAC511 Bootloader Web Programmer</legend>
-            <p> Connect to the module - If this is your first time here, follow the steps in Help section below </p>
-            <p><b-button variant="es" id="connect"> Connect</b-button></p>
+            <h1 class=text-center>ADDAC511 Bootloader Web Programmer</h1>
+            <p>
+            <p>
+
+            <p>To update the Bootloader you need to detach the 511 from your frame but leave the ribbon power cable connected and the Power ON. Once lifted from the frame locate the Micro USB input on the back of the module, plug a cable to it and to your computer.</p>
+            <p>Make sure the USB cable is a proper standard USB cable, all around there are many Micro USB cables that are made just for powering devices: these will not work as they do not have the necessary transmission lines to communicate with the module.</p>
             <dialog id="interfaceDialog">
                 Your device has multiple DFU interfaces. Select one from the list below:
                 <b-form id="interfaceForm" method="dialog">
@@ -177,36 +180,29 @@ var app = new Vue({
             </dialog>
             <div id="usbInfo" hidden="true" style="white-space: pre"></div>
             <div id="dfuInfo"  hidden="true" style="white-space: pre"></div>
-            <div>
-                <b-button variant="es" v-b-toggle.collapseHelp>Display Help</b-button>
-                <b-collapse id="collapseHelp">
-                    <div class="nested_list">
-                        <h2>Usage:</h2>
-                        <ol>
-                            <li><p>Connect the ADDAC511 module to the Computer via USB</p></li>
-                            <li><p>On the ADDAC511 module, press MENU > UPDATE BOOTLOADER. Alternatively, press both white buttons (RESET + BOOT) on the back of the module, and release the RESET button first.</p></li>
-                            <li><p>Press 'Connect' button above. A pop-up window with a list of usb devices will appear</p></li>
-                            <li><p>Select 'DFU in FS mode - Paired' and press 'Connect'</p></li>
-                            <li><p>Press ”Flash Bootloader Image”. A progress bar will appear</p></li>
-                            <li><p>Once finished disconnect the USB cable and power OFF the module</p></li>
-                        <p>
-                            On windows, you may have to update the driver to WinUSB.
+            <div class="nested_list">
+                <h2>Usage:</h2>
+                <ol>
+                    <li><p>Connect the ADDAC511 module to the Computer via USB</p></li>
+                    <li><p>On the ADDAC511 module, press MENU > UPDATE BOOTLOADER. Alternatively, press both white buttons (RESET + BOOT) on the back of the module, and release the RESET button first.</p></li>
+                    <li><p>Press 'Connect' button above. A pop-up window with a list of usb devices will appear</p></li>
+                    <li><p>Select 'DFU in FS mode - Paired' and press 'Connect'</p></li>
+                    <li><p>Press "Flash Bootloader Image". A progress bar will appear</p></li>
+                    <li><p>Once finished disconnect the USB cable and power OFF the module</p></li>
+                <p>
+                    On windows, you may have to update the driver to WinUSB.
 
-                            To do this, please follow the instructions in <a href="https://daisy.audio/tutorials/zadig/">https://daisy.audio/tutorials/zadig/</a>
-                        </p>
-                    </div>
-                </b-collapse>
-                <b-collapse id="collapseHelp">
-                    <div class="nested_list">
-                        <h1>Requirements</h1>
-                        <p>In order to use this, you will need:</p>
-                        <ul>
-                            <li>
-                                <p>An up-to-date version of Chrome, at least version 61 or newer</p>
-                            </li>
-                        </ul>
-                    </div>
-                </b-collapse>
+                    To do this, please follow the instructions in <a href="https://daisy.audio/tutorials/zadig/">https://daisy.audio/tutorials/zadig/</a>
+                </p>
+            </div>
+            <div class="nested_list">
+                <h2>Requirements</h2>
+                <p>In order to use this, you will need:</p>
+                <ul>
+                    <li>
+                        <p>An up-to-date version of Chrome, at least version 61 or newer</p>
+                    </li>
+                </ul>
             </div>
         </div>
         </b-row>
@@ -251,6 +247,8 @@ var app = new Vue({
         <b-col align="center" class="app_column">
         <b-container align="center">
             <legend>Programming Section</legend>
+
+            <p><b-button variant="es" id="connect"> Connect</b-button></p>
 
             <b-button id="download" variant='es' hidden="True" :disabled="no_device || !sel_example"> Program</b-button>
 
